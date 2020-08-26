@@ -34,12 +34,10 @@
               <option value="" disabled="" hidden="">Selecione uma opção</option>
 
               {% for subject in subjects %}
-
                 <option value="{{loop.index}}" {{ "selected" if filters.subject == loop.index }} > 
                   {{subject}}
                 </option> 
-              
-                {% endfor %}
+              {% endfor %}
             </select>
           </div>
           <div class="select-block">
@@ -48,12 +46,10 @@
               <option value="" disabled="" hidden="">Selecione uma opção</option>
 
               {% for weekday in weekdays %}
-
               <option value="{{loop.index0}}" {{ "selected" if filters.weekday == loop.index0 }} > 
                 {{weekday}}
               </option> 
-            
-              {% endfor %}
+            {% endfor %}
             </select>
           </div>
           <div class="input-block">
@@ -67,35 +63,42 @@
 
     <main>
 
-      {% for proffy in proffys %}
+      {% if proffys == "" %}
+      <p class="no-results"> Nenhum professor encontrado com a sua pesquisa</p>
 
-      <article class="teacher-item">
-        <header>
-          <img
-            src="{{proffy.avatar}}"
-            alt="{{proffy.name}}">
-          <div>
-            <strong>{{proffy.name}}</strong>
-            <span>{{proffy.subject}}</span>
-          </div>
-        </header>
+      {% else %}
 
-        <p>{{proffy.bio}}</p>
+        {% for proffy in proffys %}
 
-        <footer>
-          <p>Preço/hora<strong>R$ {{proffy.cost}}</strong></p>
+        <article class="teacher-item">
+          <header>
+            <img
+              src="{{proffy.avatar}}"
+              alt="{{proffy.name}}">
+            <div>
+              <strong>{{proffy.name}}</strong>
+              <span>{{proffy.subject}}</span>
+            </div>
+          </header>
 
-          <a 
-            href="https://api.whatsapp.com/send?l-pt%phone=55{{proffy.whatsapp}}&
-            text=Tenho interesse na sua aula de {{proffy.subject}} {{proffy.name}}" 
-            class="button"
-            target="_blank">
-            <img src="/images/icons/whatsapp.svg" alt="Whatsapp">Entrar em contato
-        </a>
-        </footer>
-      </article>
+          <p>{{proffy.bio}}</p>
 
-      {% endfor %}
+          <footer>
+            <p>Preço/hora<strong>R$ {{proffy.cost}}</strong></p>
+
+            <a 
+              href="https://api.whatsapp.com/send?l-pt%phone=55{{proffy.whatsapp}}&
+              text=Tenho interesse na sua aula de {{proffy.subject}} {{proffy.name}}" 
+              class="button"
+              target="_blank">
+              <img src="/images/icons/whatsapp.svg" alt="Whatsapp">Entrar em contato
+          </a>
+          </footer>
+        </article>
+
+        {% endfor %}
+
+      {% endif %}
     </main>
   </div>
 </body>
